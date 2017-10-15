@@ -4,7 +4,7 @@ Learning resource for practise group meeting on abstract syntax trees.
 
 ## Resources
 
-1. [Slides](./slides/index.html)
+1. [Slides](http://mib.im/bekk-learn-ast/slides/#1)
 2. [ASTExplorer](http://astexplorer.net/)
 3. [JSCodeshift – API for traversing and transforming recast ASTs](https://github.com/facebook/jscodeshift)
 4. [JS-Codemods – jscodeshift examples](https://github.com/cpojer/js-codemod/tree/master/transforms)

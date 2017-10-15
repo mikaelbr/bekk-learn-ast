@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html class="dark-blue-theme">
+
+<head>
+  <title>Abstract Syntax Tree</title>
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Source+Code+Pro" rel="stylesheet">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style type="text/css">
+    body {
+      font-family: 'Indie Flower', cursive;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-weight: normal;
+    }
+
+    .remark-code,
+    .remark-inline-code {
+      font-family: 'Source Code Pro', monospace;
+    }
+
+    .underscore {
+      font-size: 180%;
+    }
+
+    .underscore a {
+      text-decoration: none;
+    }
+
+    .underscore h1 {
+      text-align: center;
+    }
+
+    .title>h1 {
+      font-size: 300%;
+    }
+
+    .title>h2 {
+      margin-top: -5%;
+      font-size: 100%;
+    }
+
+    .title img {
+      margin-bottom: -20%;
+    }
+
+    ol {
+      margin: 0;
+      padding: 0;
+      line-height: 60px;
+      text-align: center;
+      list-style-type: none;
+    }
+
+    blockquote {
+      font-size: 200%;
+    }
+
+    .wide {
+      margin: 0;
+      padding: 0;
+    }
+
+    table {
+      font-weight: lighter;
+      padding: 0;
+      border: 0;
+      border-collapse: collapse;
+      border-spacing: 0;
+      border: 2pt solid silver;
+      margin-left: 5%;
+      margin-right: 5%;
+      width: 90%;
+    }
+
+    td,
+    th {
+      padding: .5em;
+      border: 1pt solid silver;
+      font-weight: normal;
+    }
+
+    th {
+      background-color: #3E505D;
+      color: white;
+    }
+
+    html.default-theme .underscore {
+      background: #fff;
+    }
+
+    html.default-theme .hero {
+      background-color: #2ca9df;
+      background-image: url(img/hero-left-overlay-color.svg);
+      color: #fff;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+
+    html.default-theme .hero a {
+      color: #fff;
+    }
+
+    html.black-theme .underscore {
+      background: #000;
+      color: #fff;
+    }
+
+    html.black-theme .hero {
+      background: #000;
+      background-image: url(img/hero-left-overlay-white.svg);
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+
+    html.black-theme .hero a {
+      color: #fff;
+    }
+
+    html.dark-blue-theme .underscore {
+      background: #0e2c3c;
+      color: #fff;
+    }
+
+    html.dark-blue-theme .hero {
+      background-image: url(img/hero-left-overlay-white.svg);
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+
+    html.dark-blue-theme .hero a {
+      color: #fff;
+    }
+
+    html.dark-blue-theme .underscore.full-size-bg {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-color: #fff;
+    }
+
+    .maxHeight {
+      max-height: 400px;
+      overflow: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <textarea id="source">
+    name: inverse
+    layout: true
+    class: underscore
+    ---
+    class: center, middle, hero
+
+    .title[
+      # Abstract Syntax Tree
+    ]
+
+    ---
+    class: center, middle
+
+    > “... is a tree representation of the abstract syntactic structure of source code written in a programming language.”
+
+    ---
+
+    # Code
+
+    ```c
+    while b ≠ 0
+      if a > b
+        a := a − b
+      else
+        b := b − a
+    return a
+    ```
+    ---
+    class: center full-size-bg
+    background-image: url(img/ast.png)
+    ---
+    class: center, middle
+
+    # Hva?
+    1. Laget som resultat av tokenizing og syntax analyse.
+    2. Trestuktur program, startet med en topp node (ofte program).
+    3. Kan representeres på mange måter. F.eks JSON eller binært.
+
+    ---
+    class: center, middle
+
+    # Inneholder
+    1. Inneholder ikke unødvendige tegnsettinger (som f.eks for precedence).
+    2. Kan ha ekstrainformasjon som kildekode ikke kan ha.
+    3. Inneholder gjerne informasjon om posisjon for enkelte noder.
+
+    ---
+    class: center, middle
+
+    # Kan brukes til
+
+    1. Printes til et annet språk (for kjøring)
+    2. Printes tilbake til samme språk (modifisering)
+    3. Analyseres (linting, kvalitet, feil, osv).
+
+    ---
+    class: middle
+
+    ```js
+    const str = 'Hello, World!';
+    console.log(str);
+    ```
+
+    .maxHeight[
+    ```json
+    {
+      "program": {
+        "type": "Program",
+        "body": [
+          {
+            "type": "VariableDeclaration",
+            "declarations": [
+              {
+                "type": "VariableDeclarator",
+                "id": {
+                  "type": "Identifier",
+                  "name": "str",
+                  "range": [
+                    6,
+                    9
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 1,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 9
+                    },
+                    "lines": {},
+                    "indent": 0
+                  }
+                },
+                "init": {
+                  "type": "Literal",
+                  "value": "Hello, World!",
+                  "raw": "'Hello, World!'",
+                  "range": [
+                    12,
+                    27
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 1,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 27
+                    },
+                    "lines": {},
+                    "indent": 0
+                  }
+                },
+                "range": [
+                  6,
+                  27
+                ],
+                "loc": {
+                  "start": {
+                    "line": 1,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 27
+                  },
+                  "lines": {},
+                  "indent": 0
+                }
+              }
+            ],
+            "kind": "const",
+            "range": [
+              0,
+              28
+            ],
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 28
+              },
+              "lines": {},
+              "indent": 0
+            }
+          },
+          {
+            "type": "ExpressionStatement",
+            "expression": {
+              "type": "CallExpression",
+              "callee": {
+                "type": "MemberExpression",
+                "computed": false,
+                "object": {
+                  "type": "Identifier",
+                  "name": "console",
+                  "range": [
+                    29,
+                    36
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 2,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 7
+                    },
+                    "lines": {},
+                    "indent": 0
+                  }
+                },
+                "property": {
+                  "type": "Identifier",
+                  "name": "log",
+                  "range": [
+                    37,
+                    40
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 2,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 11
+                    },
+                    "lines": {},
+                    "indent": 0
+                  }
+                },
+                "range": [
+                  29,
+                  40
+                ],
+                "loc": {
+                  "start": {
+                    "line": 2,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 11
+                  },
+                  "lines": {},
+                  "indent": 0
+                }
+              },
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "str",
+                  "range": [
+                    41,
+                    44
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 2,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 15
+                    },
+                    "lines": {},
+                    "indent": 0
+                  }
+                }
+              ],
+              "range": [
+                29,
+                45
+              ],
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 2,
+                  "column": 16
+                },
+                "lines": {},
+                "indent": 0
+              }
+            },
+            "range": [
+              29,
+              46
+            ],
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 2,
+                "column": 17
+              },
+              "lines": {},
+              "indent": 0
+            }
+          }
+        ],
+        "sourceType": "module",
+        "range": [
+          0,
+          46
+        ],
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 17
+          },
+          "lines": {},
+          "indent": 0
+        }
+      },
+      "name": null,
+      "loc": {
+        "lines": {},
+        "indent": 0,
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 17
+        }
+      },
+      "type": "File",
+      "comments": null
+    }
+    ```
+    ]
+
+  </textarea>
+  <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+  <script>
+    var slideshow = remark.create({
+      ratio: '16:9',
+      slideNumberFormat: '',
+      highlightLanguage: 'javascript',
+      highlightStyle: 'dark',
+      navigation: {
+        scroll: false,
+      },
+    });
+  </script>
+</body>
+
+</html>

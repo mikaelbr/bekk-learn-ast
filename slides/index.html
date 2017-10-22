@@ -189,27 +189,27 @@
     ---
     class: center, middle
 
-    # Hva?
-    1. Laget som resultat av tokenizing og syntax analyse.
-    2. Trestuktur program, startet med en topp node (ofte program).
-    3. Kan representeres på mange måter. F.eks JSON eller binært.
+    # What?
+    1. Made as a result of tokenizing and syntax analyzing source code.
+    2. Tree structure, starting with a single node (often Program or File).
+    3. Kan be represented/serialized in many ways. E.g. as JSON or binary.
 
     ---
     class: center, middle
 
-    # Inneholder
-    1. Inneholder ikke unødvendige tegnsettinger (som f.eks for precedence).
-    2. Kan ha ekstrainformasjon som kildekode ikke kan ha.
-    3. Inneholder gjerne informasjon om posisjon for enkelte noder.
+    # Contains
+    1. Abstract as it doesn't contain punctuations (e.g. parens for precedence)
+    2. Can contain extra metadata source code cannot (without comments).
+    3. Usually contains info on location of code and tokens (line and column).
 
     ---
     class: center, middle
 
-    # Kan brukes til
+    # Can be used for
 
-    1. Printes til et annet språk (for kjøring)
-    2. Printes tilbake til samme språk (modifisering)
-    3. Analyseres (linting, kvalitet, feil, osv).
+    1. Printing to another language (for executing, compiling)
+    2. Printing back to same language (tranformation or pretty printing)
+    3. Static analysis (linting, quality check, error checking, etc).
 
     ---
     class: middle
